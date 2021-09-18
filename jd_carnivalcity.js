@@ -803,15 +803,15 @@ function taskPostUrl(a,t = {}) {
     url: `${JD_API_HOST}`,
     body: `appid=guardian-starjd&functionId=carnivalcity_jd_prod&body=${body}&t=${Date.now()}&loginType=2`,
     headers: {
+      "Host": "api.m.jd.com",
       "Accept": "application/json, text/plain, */*",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Accept-Language": "zh-cn",
-      "Connection": "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
       "Origin": "https://carnivalcity.m.jd.com",
+      "Accept-Language": "zh-cn",
+      "User-Agent": UA,
       "Referer": "https://carnivalcity.m.jd.com/",
-      "Cookie": cookie,
-      "User-Agent": $.UA,
+      "Accept-Encoding": "gzip, deflate, br",
+      "Cookie": cookie
     }
   }
 }
@@ -825,7 +825,7 @@ async function showMsg() {
 }
 
 function getUA(){
-  $.UA = `jdapp;android;10.1.0;7.1.2;4356033313431636-7333436663463323;network/wifi;model/LIO-AN00;addressid/0;aid/4e0314ac734f6d32;oaid/;osVer/25;appBuild/89568;partner/jingdong;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 7.1.2; LIO-AN00 Build/N2G47O; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/68.0.3440.70 Mobile Safari/537.36`
+  $.UA = `jdapp;iPhone;10.1.2;14.3;${randomString(40)};network/wifi;model/iPhone12,1;addressid/0;appBuild/167802;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
 }
 function randomString(e) {
   e = e || 32;
