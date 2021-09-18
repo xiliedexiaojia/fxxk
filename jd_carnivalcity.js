@@ -80,11 +80,11 @@ let nowTime = new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*
       message = '';
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       getUA()
-      await shareCodesFormat();
+     // await shareCodesFormat();
       await JD818();
     }
   }
-  for (let i = 0; i < cookiesArr.length; i++) {
+  /*for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.canHelp = true;//能否助力
@@ -106,7 +106,7 @@ let nowTime = new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*
         await doHelp();
       }
     }
-  }
+  }*/
   // console.log(JSON.stringify($.temp))
   if (allMessage) {
     //NODE端,默认每月一日运行进行推送通知一次
