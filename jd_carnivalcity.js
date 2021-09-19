@@ -808,7 +808,7 @@ function taskPostUrl(a,t = {}) {
       "Content-Type": "application/x-www-form-urlencoded",
       "Origin": "https://carnivalcity.m.jd.com",
       "Accept-Language": "zh-cn",
-      "User-Agent": UA,
+      "User-Agent": $.UA,
       "Referer": "https://carnivalcity.m.jd.com/",
       "Accept-Encoding": "gzip, deflate, br",
       "Cookie": cookie
