@@ -149,7 +149,7 @@ async function doHotProducttask() {
   if ($.hotProductList && $.hotProductList.length) console.log(`开始 【浏览热销手机产品】任务,需等待6秒`)
   for (let item of $.hotProductList) {
     await doBrowse(item['id'], "", "hot", "browse", "browseHotSku");
-    await $.wait(1000 * 6);
+    await $.wait(1200 * 6);
     if ($.browseId) {
       await getBrowsePrize($.browseId)
     }
@@ -269,7 +269,7 @@ function brandTaskInfo(brandId) {
                 await followShop(sku['id'], brandId);
               }else if(sku['status'] == 8){
                 await doBrowse(sku['id'], brandId, "brand", "follow", "browseShop");
-                await $.wait(1000 * 6);
+                await $.wait(1200 * 6);
                 if ($.browseId) await getBrowsePrize($.browseId, brandId);
               }else{
                 console.log(`未知任务状态 ${sku['status']}`)
@@ -281,7 +281,7 @@ function brandTaskInfo(brandId) {
               if(flag) flag = false
               console.log(`开始浏览 2-F 单品区 任务 ${sku['name']}`);
               await doBrowse(sku['id'], brandId, "brand", "presell", "browseSku");
-              await $.wait(1000 * 6);
+              await $.wait(1200 * 6);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             flag = true
@@ -290,7 +290,7 @@ function brandTaskInfo(brandId) {
               if(flag) flag = false
               console.log(`开始浏览 3-F 综合区 任务 ${sku['name']}，需等待10秒`);
               await doBrowse(sku['id'], brandId, "brand", "meeting", "browseVenue");
-              await $.wait(10500);
+              await $.wait(11500);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             flag = true
@@ -350,7 +350,7 @@ async function doBrowseshopTask() {
   if ($.browseshopList && $.browseshopList.length) console.log(`\n开始 【逛好货街，做任务】，需等待10秒`)
   for (let shop of $.browseshopList) {
     await doBrowse(shop['id'], "", "browseShop", "browse", "browseShop");
-    await $.wait(10000);
+    await $.wait(12000);
     if ($.browseId) {
       await getBrowsePrize($.browseId)
     }
@@ -504,7 +504,7 @@ function myRank() {
                 } else if (data.data[i].status === '3') {
                   console.log(`${data.data[i]['date']}日 【${data.data[i]['prizeName']}】往期京豆奖励已领取~`)
                 } else {
-                  console.log(`${data.data[i]['date']}日 【${data.data[i]['status']}】往期京豆奖励，今日争取进入前30000名哦~`)
+                  console.log(`${data.data[i]['date']}日 【${data.data[i]['status']}】往期京豆奖励，今日争取进入前500名哦~`)
                 }
               }
             }
@@ -825,7 +825,7 @@ async function showMsg() {
 }
 
 function getUA(){
-  $.UA = `jdapp;iPhone;10.1.2;14.3;${randomString(40)};network/wifi;model/iPhone12,1;addressid/0;appBuild/167802;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
+  $.UA = `jdapp;iPhone;10.1.4;14.3;${randomString(40)};network/wifi;model/iPhone12,1;addressid/0;appBuild/167814;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
 }
 function randomString(e) {
   e = e || 32;
