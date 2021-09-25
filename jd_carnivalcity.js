@@ -149,7 +149,7 @@ async function doHotProducttask() {
   if ($.hotProductList && $.hotProductList.length) console.log(`开始 【浏览热销手机产品】任务,需等待6秒`)
   for (let item of $.hotProductList) {
     await doBrowse(item['id'], "", "hot", "browse", "browseHotSku");
-    await $.wait(1200 * 6);
+    await $.wait(1000 * 6);
     if ($.browseId) {
       await getBrowsePrize($.browseId)
     }
@@ -269,7 +269,7 @@ function brandTaskInfo(brandId) {
                 await followShop(sku['id'], brandId);
               }else if(sku['status'] == 8){
                 await doBrowse(sku['id'], brandId, "brand", "follow", "browseShop");
-                await $.wait(1200 * 6);
+                await $.wait(1000 * 6);
                 if ($.browseId) await getBrowsePrize($.browseId, brandId);
               }else{
                 console.log(`未知任务状态 ${sku['status']}`)
@@ -281,7 +281,7 @@ function brandTaskInfo(brandId) {
               if(flag) flag = false
               console.log(`开始浏览 2-F 单品区 任务 ${sku['name']}`);
               await doBrowse(sku['id'], brandId, "brand", "presell", "browseSku");
-              await $.wait(1200 * 6);
+              await $.wait(1000 * 6);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             flag = true
@@ -290,7 +290,7 @@ function brandTaskInfo(brandId) {
               if(flag) flag = false
               console.log(`开始浏览 3-F 综合区 任务 ${sku['name']}，需等待10秒`);
               await doBrowse(sku['id'], brandId, "brand", "meeting", "browseVenue");
-              await $.wait(11500);
+              await $.wait(10100);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             flag = true
@@ -350,7 +350,7 @@ async function doBrowseshopTask() {
   if ($.browseshopList && $.browseshopList.length) console.log(`\n开始 【逛好货街，做任务】，需等待10秒`)
   for (let shop of $.browseshopList) {
     await doBrowse(shop['id'], "", "browseShop", "browse", "browseShop");
-    await $.wait(12000);
+    await $.wait(10100);
     if ($.browseId) {
       await getBrowsePrize($.browseId)
     }
