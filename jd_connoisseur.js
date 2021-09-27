@@ -7,11 +7,14 @@
 [task_local]
 #内容鉴赏官
 20 0,5 * * * https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_connoisseur.js, tag=内容鉴赏官, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+
 ================Loon==============
 [Script]
 cron "20 0,5 * * *" script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_connoisseur.js,tag=内容鉴赏官
+
 ===============Surge=================
 内容鉴赏官 = type=cron,cronexp="20 0,5 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_connoisseur.js
+
 ============小火箭=========
 内容鉴赏官 = type=cron,script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_connoisseur.js, cronexpr="20 0,5 * * *", timeout=3600, enable=true
  */
@@ -35,14 +38,14 @@ if ($.isNode()) {
 const JD_API_HOST = 'https://api.m.jd.com/';
 let agid = [], pageId, encodeActivityId, paginationFlrs, activityId
 let allMessage = '';
-const UA = `jdapp;iPhone;10.1.2;14.7.1;${randomString(40)};network/wifi;model/iPhone13,4;addressid/0;appBuild/167802;jdSupportDarkMode/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
+const UA = `jdapp;iPhone;10.1.4;14.7.1;${randomString(40)};network/wifi;model/iPhone13,4;addressid/0;appBuild/167814;jdSupportDarkMode/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
   let res = await getAuthorShareCode('http://cdn.boledao.com/shareCodes/connoisseur.json')
-   for (let i = 0; i < cookiesArr.length; i++) {
+  for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
@@ -173,11 +176,15 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
             if ((assignmentId === "2PbAu1BAT79RxrM5V7c2VAPUQDSd" || assignmentId === "3dw9N5yB18RaN9T1p5dKHLrWrsX" || assignmentId === "2gWnJADG8JXMpp1WXiNHgSy4xUSv" || assignmentId === "CtXTxzkh4ExFCrGf8si3ePxGnPy" || assignmentId === "26KhtkXmoaj6f37bE43W5kF8a9EL" || assignmentId === "bWE8RTJm5XnooFr4wwdDM5EYcKP") && !body['helpType']) {
               if (assignmentId !== "2PbAu1BAT79RxrM5V7c2VAPUQDSd") console.log(`去做【${data.data[0].title}】`)
               if (data.code === "0" && data.data) {
-                if (data.data[0].status !== "2") {
-                  await interactive_done(type, data.data[0].projectId, data.data[0].assignmentId, data.data[0].itemId)
-                  await $.wait(data.data[0].waitDuration || 2000)
+                if (data.data[0]) {
+                  if (data.data[0].status !== "2") {
+                    await interactive_done(type, data.data[0].projectId, data.data[0].assignmentId, data.data[0].itemId)
+                    await $.wait((data.data[0].waitDuration * 1000) || 2000)
+                  } else {
+                    console.log(assignmentId === "2PbAu1BAT79RxrM5V7c2VAPUQDSd" ? `今日已签到` : `任务已完成`)
+                  }
                 } else {
-                  console.log(assignmentId === "2PbAu1BAT79RxrM5V7c2VAPUQDSd" ? `今日已签到` : `任务已完成`)
+                  console.log(`无当前任务`)
                 }
               } else {
                 console.log(data.message)
@@ -186,7 +193,7 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
               if (data.code === "0" && data.data) {
                 if (data.data[0].status !== "2") {
                   await sign_interactive_done(type, data.data[0].projectId, data.data[0].assignmentId)
-                  await $.wait(2000)
+                  await $.wait((data.data[0].waitDuration * 1000) || 2000)
                   await interactive_reward(type, data.data[0].projectId, data.data[0].assignmentId)
                 } else {
                   console.log(`任务已完成`)
@@ -199,7 +206,7 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
                 console.log(`去做【${data.data[0].title}】`)
                 if (data.data[0].status !== "2") {
                   await interactive_accept(type, data.data[0].projectId, data.data[0].assignmentId, data.data[0].itemId)
-                  await $.wait(data.data[0].waitDuration)
+                  await $.wait((data.data[0].waitDuration * 1000) || 2000)
                   await qryViewkitCallbackResult(data.data[0].projectId, data.data[0].assignmentId, data.data[0].itemId)
                 } else {
                   console.log(`任务已完成`)
@@ -371,7 +378,9 @@ async function qryViewkitCallbackResult(encryptProjectId, encryptAssignmentId, i
         } else {
           if (data) {
             data = JSON.parse(data)
-            console.log(`恭喜获得2个京豆`)
+            if (data.code === "0" || data.msg === "query success!") {
+              console.log(`恭喜获得2个京豆`)
+            }
           }
         }
       } catch (e) {
