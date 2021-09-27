@@ -131,7 +131,7 @@ function mhId(url) {
 }
 
 function mhUrl() {
-  let url = 'http://qyuyful8s.hb-bkt.clouddn.com/jd-half-mh.json'
+  let url = 'https://jd-rra-1255594201.file.myqcloud.com/jd-half-mh.json'
   if ($.isNode() && process.env.JD_MH_URL) {
     url = process.env.JD_MH_URL
   } else if ($.getdata('jdMHUrl')) {
