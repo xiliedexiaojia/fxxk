@@ -178,7 +178,7 @@ function authorhelp(helppacketId) {
         'Content-Type' : `application/x-www-form-urlencoded`,
         'Host' : `api.m.jd.com`,
         'Connection' : `keep-alive`,
-        'User-Agent' : `jdltapp;`,
+        'User-Agent' : `jdltapp;iPad;3.3.0;14.4.2;8d9edbd1ca51fd043ad6344f5b42c077f2d26905;network/wifi;hasUPPay/0;pushNoticeIsOpen/0;lang/zh_CN;model/iPad5,4;addressid/;hasOCPay/0;appBuild/1036;supportBestPay/0;pv/8.8;apprpd/;ref/JDLTSubMainPageViewController;psq/7;ads/;psn/8d9edbd1ca51fd043ad6344f5b42c077f2d26905|11;jdv/0|;adk/;app_device/IOS;pap/JA2020_3112531|3.3.0|IOS 14.4.2;Mozilla/5.0 (iPad; CPU OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`,
         'Referer' : `https://pushgold.jd.com/?lng=119.602736&lat=29.048945&sid=d7044246100507e07aaa322179308b2w&un_area=15_1262_1265_0`,
         'Accept-Language' : `zh-cn`
         },
@@ -227,7 +227,7 @@ function helpCoinDozer(packetID,name) {
         'Content-Type' : `application/x-www-form-urlencoded`,
         'Host' : `api.m.jd.com`,
         'Connection' : `keep-alive`,
-        'User-Agent' : `jdltapp;`,
+        'User-Agent' : `jdltapp;iPad;3.3.0;14.4.2;8d9edbd1ca51fd043ad6344f5b42c077f2d26905;network/wifi;hasUPPay/0;pushNoticeIsOpen/0;lang/zh_CN;model/iPad5,4;addressid/;hasOCPay/0;appBuild/1036;supportBestPay/0;pv/8.8;apprpd/;ref/JDLTSubMainPageViewController;psq/7;ads/;psn/8d9edbd1ca51fd043ad6344f5b42c077f2d26905|11;jdv/0|;adk/;app_device/IOS;pap/JA2020_3112531|3.3.0|IOS 14.4.2;Mozilla/5.0 (iPad; CPU OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`,
         'Referer' : `https://pushgold.jd.com/?lng=119.602736&lat=29.048945&sid=d7044246100507e07aaa322179308b2w&un_area=15_1262_1265_0`,
         'Accept-Language' : `zh-cn`
         },
