@@ -342,7 +342,7 @@ async function getUserInfo() {
         'Accept-Encoding' : `gzip, deflate, br`,
         'Content-Type' : `application/x-www-form-urlencoded`,
         'Origin' : `https://lzdz1-isv.isvjcloud.com`,
-        'User-Agent' : `JD4iPhone/162751 (iPhone; iOS 14.6; Scale/3.00)`,
+        'User-Agent' : `JD4iPhone/167841 (iPhone; iOS 14.6; Scale/3.00)`,
         'Cookie' : $.cookie ,
         'Referer' : `https://lzdz1-isv.isvjcloud.com/dingzhi/vivo/iqoojieyapa/activity/${$.activityID}`,
         'Accept-Language' : `zh-cn`,
@@ -461,7 +461,7 @@ function getToken() {
         headers: {
             'Host': 'api.m.jd.com',
             'accept': '*/*',
-            'user-agent': 'JD4iPhone/167490 (iPhone; iOS 14.2; Scale/3.00)',
+            'user-agent': 'JD4iPhone/167841 (iPhone; iOS 14.6; Scale/3.00)',
             'accept-language': 'zh-Hans-JP;q=1, en-JP;q=0.9, zh-Hant-TW;q=0.8, ja-JP;q=0.7, en-US;q=0.6',
             'content-type': 'application/x-www-form-urlencoded',
             'Cookie': $.cookie
@@ -530,7 +530,7 @@ function TotalBean() {
     })
 }
 async function getUA(){
-    $.UA = `jdapp;iPhone;10.0.10;14.3;${randomString(40)};network/wifi;model/iPhone12,1;addressid/3364463029;appBuild/167764;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
+    $.UA = `jdapp;iPhone;10.1.6;14.6;${randomString(40)};network/wifi;model/iPhone12,1;addressid/0;appBuild/167841;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
 }
 function randomString(e) {
     e = e || 32;

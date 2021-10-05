@@ -72,6 +72,16 @@ if ($.isNode()) {
       UAInfo[$.UserName] = UA
     }
   }
+  
+  const author = ['2f9bd788cc1cea18d0b55c0584b93f59']
+  for (let i = 0; i < author.length; i++) {
+    $.shareCodes.push({
+      'use': 'author'+ i,
+      'smp': author[i],
+      'num': 0,
+      'max': false
+    })
+  }
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
