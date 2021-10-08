@@ -81,6 +81,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         continue
       }
       await main()
+      await goldCreatorPublish();
     }
   }
 })()
@@ -252,6 +253,33 @@ function goldCreatorDoTask(body) {
               }
             } else {
               console.log(`失败：${JSON.stringify(data)}\n`);
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function goldCreatorPublish() {
+  return new Promise(resolve => {
+    $.get(taskUrl('goldCreatorPublish'), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} goldCreatorPublish API请求失败，请检查网路重试`)
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data)
+            if (data.code === '0') {
+              if (data.result.subCode === '0') {
+                console.log(data.result.lotteryResult.lotteryCode === '0' ? `揭榜成功：获得${data.result.lotteryResult.lotteryScore}京豆` : `揭榜成功：获得空气~`)
+              }
+            } else {
+              console.log(`揭榜失败：${JSON.stringify(data)}`)
             }
           }
         }
