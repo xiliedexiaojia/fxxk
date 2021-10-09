@@ -81,7 +81,8 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         continue
       }
       await main()
-      await goldCreatorPublish();
+      await goldCreatorPublish()
+      await goldCenterDoTask();
     }
   }
 })()
@@ -280,6 +281,38 @@ function goldCreatorPublish() {
               }
             } else {
               console.log(`揭榜失败：${JSON.stringify(data)}`)
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function goldCenterDoTask(body) {
+  return new Promise(resolve => {
+    const body = {"type":1};
+    const options = taskUrl('goldCenterDoTask', body)
+    $.get(options, async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} goldCenterDoTask API请求失败，请检查网路重试`)
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data)
+            if (data.code === '0') {
+              if (data.result.taskCode === '0') {
+                console.log(`响应成功，获得 ${data.result.lotteryScore}京豆\n`);
+                if (data.result.lotteryScore) $.beans += parseInt(data.result.lotteryScore);
+              } else {
+                console.log(`响应失败：${data.result['taskMsg']}\n`);
+              }
+            } else {
+              console.log(`响应失败：${JSON.stringify(data)}\n`);
             }
           }
         }
