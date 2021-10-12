@@ -477,7 +477,7 @@ function JingDongTurn(s) {
         headers: {
           Cookie: KEY
         },
-        body: 'body=%7B%22enAwardK%22%3A%22a9df7a048bf4c71bc14d64762e4f814d%22%2C%22riskParam%22%3A%7B%7D%7D&client=wh5'
+        body: 'body=%7B%22enAwardK%22%3A%225619e1d62ecb20014c54553cb608ac20%22%2C%22riskParam%22%3A%7B%7D%7D&client=wh5'
       };
       $nobyda.post(JDTUrl, async function(error, response, data) {
         try {
