@@ -111,14 +111,6 @@ let inviteCodes = ['RtGKz7j1Qg6hK4CdH4UzhWy5WJJxSBS4dAh--AI8lCDzkUgEBA@RtGKzemlR
             console.log(`助力次数已耗尽，跳出`)
             break
           }
-          if (res['data']['result']['toasts']) {
-            if (!Object.keys(res['data']['result']['toasts']).length) {
-              console.log(`未知错误，跳出`)
-              break
-            }
-          } else {
-            console.log(`助力失败：不能助力自己`)
-          }
           if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0]) {
             console.log(`助力 【${$.readShareCode[j]}】:${res.data.result.toasts[0].msg}`)
           }
@@ -137,14 +129,6 @@ let inviteCodes = ['RtGKz7j1Qg6hK4CdH4UzhWy5WJJxSBS4dAh--AI8lCDzkUgEBA@RtGKzemlR
           if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0] && res['data']['result']['toasts'][0]['status'] === '3') {
             console.log(`助力次数已耗尽，跳出`)
             break
-          }
-          if (res['data']['result']['toasts']) {
-            if (!Object.keys(res['data']['result']['toasts']).length) {
-              console.log(`未知错误，跳出`)
-              break
-            }
-          } else {
-            console.log(`助力失败：不能助力自己`)
           }
           if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0]) {
             console.log(`助力 【${$.newShareCodes[j]}】:${res.data.result.toasts[0].msg}`)
@@ -302,7 +286,7 @@ function getInviteInfo() {
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
-            if (data.code === 0 && data.data.bizCode ===0) {
+            if (data && (data.code === 0 && data.data.bizCode === 0)) {
               if (data.data.result.masterData.actStatus === 2) {
                 await receiveCash('', 2)
                 await $.wait(2000)
