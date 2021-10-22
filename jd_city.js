@@ -44,6 +44,7 @@ let inviteCodes = ['RtGKz7j1Qg6hK4CdH4UzhWy5WJJxSBS4dAh--AI8lCDzkUgEBA@RtGKzemlR
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
+  await requireConfig();
   if (exchangeFlag) {
     console.log(`脚本自动抽奖`)
   } else {
@@ -102,30 +103,6 @@ let inviteCodes = ['RtGKz7j1Qg6hK4CdH4UzhWy5WJJxSBS4dAh--AI8lCDzkUgEBA@RtGKzemlR
     $.index = i + 1;
     uuid = randomString(40)
     if (i === 0) {
-      for (let j = 0; j < $.readShareCode.length; j++) {
-        console.log(`\nCK1 ${$.UserName} 开始助力 助力池 【${$.readShareCode[j]}】`)
-        await $.wait(1000)
-        let res = await getInfo($.readShareCode[j])
-        if (res && res['data'] && res['data']['bizCode'] === 0) {
-          if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0] && res['data']['result']['toasts'][0]['status'] === '3') {
-            console.log(`助力次数已耗尽，跳出`)
-            break
-          }
-          if (res['data']['result']['toasts']) {
-            if (res['data']['result']['toasts'][0]) {
-              console.log(`助力 【${$.readShareCode[j]}】:${res.data.result.toasts[0].msg}`)
-            } else {
-              console.log(`未知错误，跳出`)
-              break
-            }
-          }
-        }
-        if ((res && res['status'] && res['status'] === '3') || (res && res.data && res.data.bizCode === -11)) {
-          // 助力次数耗尽 || 黑号
-          break
-        }
-      }
-    } else {
       for (let j = 0; j < $.newShareCodes.length; j++) {
         console.log(`\n${$.UserName} 开始助力 【${$.newShareCodes[j]}】`)
         await $.wait(1000)
@@ -137,7 +114,7 @@ let inviteCodes = ['RtGKz7j1Qg6hK4CdH4UzhWy5WJJxSBS4dAh--AI8lCDzkUgEBA@RtGKzemlR
           }
           if (res['data']['result']['toasts']) {
             if (res['data']['result']['toasts'][0]) {
-              console.log(`助力 【${$.readShareCode[j]}】:${res.data.result.toasts[0].msg}`)
+              console.log(`助力 【${$.newShareCode[j]}】:${res.data.result.toasts[0].msg}`)
             } else {
               console.log(`未知错误，跳出`)
               break
@@ -399,17 +376,52 @@ function readShareCode() {
 function shareCodesFormat() {
   return new Promise(async resolve => {
     // console.log(`第${$.index}个京东账号的助力码:::${$.shareCodesArr[$.index - 1]}`)
-    $.newShareCodes = [];
-    const readShareCodeRes = await readShareCode();
-    $.readShareCode = readShareCodeRes.data || []
+   $.newShareCodes = [];
+    if ($.shareCodesArr[$.index - 1]) {
+      $.newShareCodes = $.shareCodesArr[$.index - 1].split('@');
+    } else {
+      console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
+      const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
+      $.newShareCodes = inviteCodes[tempIndex].split('@');
+    }
+    const readShareCodeRes = null;
     if (readShareCodeRes && readShareCodeRes.code === 200) {
-      $.newShareCodes = [...new Set([...$.shareCodes, ...inviteCodes, ...$.readShareCode])];
+      $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
     }
     console.log(`\n您将要助力的好友${JSON.stringify($.newShareCodes)}`)
     resolve();
   })
 }
-
+function requireConfig() {
+  return new Promise(resolve => {
+    console.log(`开始获取${$.name}配置文件\n`);
+    //Node.js用户请在jdCookie.js处填写京东ck;
+    let shareCodes = [];
+    if ($.isNode()) {
+      if (process.env.JD_CITY_EXCHANGE) {
+        exchangeFlag = process.env.JD_CITY_EXCHANGE || exchangeFlag;
+      }
+      if (process.env.CITY_SHARECODES) {
+        if (process.env.CITY_SHARECODES.indexOf('\n') > -1) {
+          shareCodes = process.env.CITY_SHARECODES.split('\n');
+        } else {
+          shareCodes = process.env.CITY_SHARECODES.split('&');
+        }
+      }
+    }
+    console.log(`共${cookiesArr.length}个京东账号\n`);
+    $.shareCodesArr = [];
+    if ($.isNode()) {
+      Object.keys(shareCodes).forEach((item) => {
+        if (shareCodes[item]) {
+          $.shareCodesArr.push(shareCodes[item])
+        }
+      })
+    }
+    console.log(`您提供了${$.shareCodesArr.length}个账号的${$.name}助力码\n`);
+    resolve()
+  })
+}
 function TotalBean() {
   return new Promise(async resolve => {
     const options = {
