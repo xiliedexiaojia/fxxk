@@ -28,6 +28,7 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
 let joinIdInfo = {}, AuthorizationInfo = {};
+let num;
 $.shareCodes = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -38,7 +39,7 @@ if ($.isNode()) {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 const JD_API_HOST = 'https://www.kmg-jd.com/api';
-const UA = `jdapp;iPhone;10.1.6;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167841;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
+const UA = `jdapp;iPhone;10.2.0;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167853;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
 function randomWord(randomFlag, min, max){
   var str = "",
     range = min,
@@ -81,6 +82,7 @@ let allMessage = '';
         }
         continue
       }
+      num = 0
       await jdYs()
       joinIdInfo[$.UserName] = $.joinId
       AuthorizationInfo[$.UserName] = $.Authorization
@@ -351,6 +353,8 @@ function lottery() {
                 console.log(`抽奖成功：获得${data.data.awardVal}${data.data.awardName}`)
               } else {
                 console.log(`抽奖成功：获得空气~`)
+                num++
+                if (num === 5) $.stop = true
               }
             } else {
               console.log(`抽奖失败：${data.msg}`)
