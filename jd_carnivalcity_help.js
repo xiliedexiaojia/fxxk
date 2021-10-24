@@ -356,13 +356,15 @@ function taskUrl(body = {}) {
   return {
     url: `${JD_API_HOST}?appid=guardian-starjd&functionId=carnivalcity_jd_prod&body=${JSON.stringify(body)}&t=${Date.now()}&loginType=2`,
     headers: {
-      "accept": "application/json, text/plain, */*",
-      "accept-encoding": "gzip, deflate, br",
-      "accept-language": "zh-cn",
-      "referer": "https://carnivalcity.m.jd.com/",
-      "origin": "https://carnivalcity.m.jd.com",
-      "Cookie": cookie,
-      "User-Agent": UA
+      "Host": "api.m.jd.com",
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Origin": "https://carnivalcity.m.jd.com",
+      "Accept-Language": "zh-CN,zh-Hans;q=0.9",
+      "User-Agent": UA,
+      "Referer": "https://carnivalcity.m.jd.com/",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Cookie": cookie
     }
   }
 }

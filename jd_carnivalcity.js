@@ -72,6 +72,7 @@ function randomWord(randomFlag, min, max){
     if ($.isNode()) await notify.sendNotify($.name + '活动已结束', `请删除此脚本\n咱江湖再见`);
     return
   }
+  await updateShareCodesCDN();
   await requireConfig();
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
@@ -102,6 +103,28 @@ function randomWord(randomFlag, min, max){
       await JD818();
     }
   }
+  for (let i = 0; i < cookiesArr.length; i++) {
+    if (cookiesArr[i]) {
+      cookie = cookiesArr[i];
+      $.canHelp = true;//能否助力
+      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+      if ((cookiesArr && cookiesArr.length >= 1) && $.canHelp) {
+        console.log(`\n先自己账号内部相互邀请助力\n`);
+        for (let item of $.temp) {
+          console.log(`\n${$.UserName} 去参助力 ${item}`);
+          const helpRes = await toHelp(item.trim());
+          if (helpRes.data.status === 5) {
+            console.log(`助力机会已耗尽，跳出助力`);
+            $.canHelp = false;
+            break;
+          }
+        }
+      }
+      if ($.canHelp) {
+        await doHelp();
+      }
+    }
+  }
   if (allMessage) {
     //NODE端,默认每月一日运行进行推送通知一次
     if ($.isNode()) {
@@ -120,10 +143,16 @@ function randomWord(randomFlag, min, max){
 async function JD818() {
   try {
     await indexInfo();//获取任务
-    // await supportList();//助力情况
-    // await getHelp();//获取邀请码
+    await supportList();//助力情况
+    await getHelp();//获取邀请码
     if ($.blockAccount) return
     await indexInfo(true);//获取任务
+    $.stop = false;
+    let num = 0;
+    do {
+      await headInfo()
+      num++
+    } while (!$.stop && num < 30)
     await doHotProducttask();//做热销产品任务
     await doBrandTask();//做品牌手机任务
     await doBrowseshopTask();//逛好货街，做任务
@@ -138,6 +167,115 @@ async function JD818() {
     $.logErr(e)
   }
 }
+
+function headInfo() {
+  return new Promise(resolve => {
+    const body = {"apiMapping":"/khc/index/headInfo"}
+    $.post(taskUrl(body), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} headInfo API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            data = JSON.parse(data);
+            if (data.code === 200) {
+              if (data.data.state === "0") {
+                if (data.data.taskType === "13" || data.data.taskType === "15") {
+                  console.log(`开始 【顶部】浏览任务,需等待6秒`)
+                  await doBrowseHead(data.data.taskIndex, data.data.taskId, data.data.taskType)
+                } else if (data.data.taskType === "14") {
+                  console.log(`开始 【顶部】加购任务`)
+                  await getHeadJoinPrize(data.data.taskId, data.data.taskIndex)
+                }
+              } else {
+                $.stop = true
+              }
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function doBrowseHead(taskIndex, taskId, taskType) {
+  return new Promise(resolve => {
+    const body = {"taskIndex":taskIndex,"taskId":taskId,"taskType":taskType,"apiMapping":"/khc/task/doBrowseHead"}
+    $.post(taskUrl(body), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} doBrowseHead API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            data = JSON.parse(data);
+            if (data.code === 200) {
+              await $.wait(6000)
+              await getHeadBrowsePrize(data.data.browseId)
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function getHeadBrowsePrize(browseId) {
+  return new Promise(resolve => {
+    const body = {"browseId":browseId,"apiMapping":"/khc/task/getHeadBrowsePrize"}
+    $.post(taskUrl(body), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} getHeadBrowsePrize API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            data = JSON.parse(data);
+            if (data.code === 200) {
+              console.log(`getHeadBrowsePrize 领取奖励结果`, JSON.stringify(data), '\n')
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function getHeadJoinPrize(taskId, taskIndex) {
+  return new Promise(resolve => {
+    const body = {"taskId":taskId,"taskIndex":taskIndex,"apiMapping":"/khc/task/getHeadJoinPrize"}
+    $.post(taskUrl(body), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} getHeadJoinPrize API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            data = JSON.parse(data);
+            if (data.code === 200) {
+              console.log(`getHeadJoinPrize 领取奖励结果`, JSON.stringify(data), '\n')
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+
 async function doHotProducttask() {
   $.hotProductList = $.hotProductList.filter(v => !!v && v['status'] === "1");
   if ($.hotProductList && $.hotProductList.length) console.log(`开始 【浏览热销手机产品】任务,需等待6秒`)
@@ -641,6 +779,24 @@ function getListRank() {
         $.logErr(e, resp)
       } finally {
         resolve(data);
+      }
+    })
+  })
+}
+function updateShareCodesCDN(url = 'http://cdn.boledao.com/shareCodes/jd_cityShareCodes.json') {
+  return new Promise(resolve => {
+    $.get({url , headers:{"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"}, timeout: 200000}, async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          $.updatePkActivityIdRes = JSON.parse(data);
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
       }
     })
   })
