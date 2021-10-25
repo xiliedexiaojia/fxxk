@@ -144,7 +144,7 @@ let inviteCodes = ['RtGKz7j1Qg6hK4CdH4UzhWy5WJJxSBS4dAh--AI8lCDzkUgEBA@RtGKzemlR
   })
 
 function getInfo(inviteId, flag = false) {
-  let body = {"lbsCity":"19","realLbsCity":"1601","inviteId":inviteId,"headImg":"","userName":"","taskChannel":"1"}
+  let body = {"lbsCity":"1","realLbsCity":"2953","inviteId":inviteId,"headImg":"","userName":"","taskChannel":"1"}
   return new Promise((resolve) => {
     $.post(taskPostUrl("city_getHomeData",body), async (err, resp, data) => {
       try {
@@ -178,7 +178,7 @@ function getInfo(inviteId, flag = false) {
                       }
                     }
                   }
-                  for (let task of taskVos || []) {
+                  /*for (let task of taskVos || []) {
                     const t = Date.now();
                     if (task.status === 1 && t >= task.taskBeginTime && t < task.taskEndTime) {
                       const id = task.taskId, max = task.maxTimes;
@@ -199,7 +199,7 @@ function getInfo(inviteId, flag = false) {
                       }
                       await $.wait(2500);
                     }
-                  }
+                  }*/
                 }
                 for (let vo of data.data.result && data.data.result.mainInfos || []) {
                   if (vo && vo.remaingAssistNum === 0 && vo.status === "1") {
