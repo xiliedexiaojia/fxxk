@@ -161,7 +161,7 @@ async function takeRequest(functionId,bodyInfo,h5stFlag = false){
         })
     })
 }
-function getAuthorShareCode() {
+function getAuthorShareCode(url) {
     return new Promise(resolve => {
         const options = {
             url: `${url}?${new Date()}`, "timeout": 10000, headers: {
