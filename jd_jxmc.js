@@ -88,7 +88,7 @@ if ($.isNode()) {
     $.cookie = cookiesArr[i];
     $.isLogin = true;
     $.nickName = '';
-    UA = `jdpingou;iPhone;5.8.0;14.6;${randomString(40)};network/wifi;model/iPhone10,2;appBuild/100736;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/${Math.random * 98 + 1};pap/JA2019_3111789;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E200`
+    UA = `jdpingou;iPhone;5.9.0;14.6;${randomString(40)};network/wifi;model/iPhone10,2;appBuild/100739;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/${Math.random * 98 + 1};pap/JA2019_3111789;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E200`
     UAInfo[$.UserName] = UA
     await TotalBean();
     $.UserName = decodeURIComponent($.cookie.match(/pt_pin=([^; ]+)(?=;?)/) && $.cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
