@@ -60,6 +60,8 @@ let shareList = [];
             }
         }
     }
+    await getShareCode('superBrand.json')
+    allShareList = [...new Set([...allShareList, ...($.shareCode || [])])]
     console.log(`\n-----------------------互助----------------------\n`)
     for (let i = 0; i < cookiesArr.length; i++) {
         let cookie = cookiesArr[i];
@@ -244,7 +246,30 @@ async function takeRequest(cookie,functionId,bodyInfo){
         })
     })
 }
-
+function getShareCode(name) {
+  return new Promise(resolve => {
+    $.get({
+      url: "http://cdn.boledao.com/shareCodes/"+name,
+      headers: {
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
+      }
+    }, async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`);
+          console.log(`${$.name} API请求失败，请检查网路重试`);
+        } else {
+          console.log(`优先账号内部互助`);
+          $.shareCode = JSON.parse(data);
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
 function TotalBean() {
     return new Promise(async resolve => {
         const options = {
