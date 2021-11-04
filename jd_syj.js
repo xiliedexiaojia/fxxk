@@ -1,29 +1,23 @@
 /*
- * @Author: lxk0301 https://gitee.com/lxk0301
- * @Date: 2020-11-27 09:19:21
- * @Last Modified by: lxk0301
- * @Last Modified time: 2021-5-21 17:58:02
- */
-/*
 赚京豆脚本，一：做任务 天天领京豆(加速领京豆)、三：赚京豆-瓜分京豆
 活动入口：赚京豆(微信小程序)-赚京豆-签到领京豆
-更新地址：https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js
+更新地址：jd_syj.js
 已支持IOS双京东账号, Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, 小火箭，JSBox, Node.js
 ============Quantumultx===============
 [task_local]
 #赚京豆
-0-59/20 0,1 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js, tag=赚京豆, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jd_syj.png, enabled=true
+0-59/20 0,1 * * * jd_syj.js, tag=赚京豆, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jd_syj.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "0-59/20 0,1 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js, tag=赚京豆
+cron "0-59/20 0,1 * * *" script-path=jd_syj.js, tag=赚京豆
 
 ===============Surge=================
-赚京豆 = type=cron,cronexp="0-59/20 0,1 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js
+赚京豆 = type=cron,cronexp="0-59/20 0,1 * * *",wake-system=1,timeout=3600,script-path=jd_syj.js
 
 ============小火箭=========
-赚京豆 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js, cronexpr="0-59/20 0,1 * * *", timeout=3600, enable=true
+赚京豆 = type=cron,script-path=jd_syj.js, cronexpr="0-59/20 0,1 * * *", timeout=3600, enable=true
  */
 const $ = new Env('赚京豆');
 
@@ -52,7 +46,6 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
     return;
   }
    await getAuthorShareCode('http://cdn.boledao.com/shareCodes/jd_zz.json');
-   await getAuthorShareCode('http://cdn.boledao.com/shareCodes/jd_zz.json');
    //await getRandomCode();
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
@@ -75,7 +68,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
       await main();
     }
   }
- /* console.log(`\n\n内部互助 【赚京豆(微信小程序)-瓜分京豆】活动(优先内部账号互助(需内部cookie数量大于${$.assistNum || 4}个)，如有剩余助力次数则给作者lxk0301和随机团助力)\n`)
+  console.log(`\n\n内部互助 【赚京豆(微信小程序)-瓜分京豆】活动(优先内部账号互助(需内部cookie数量大于${$.assistNum || 4}个)，如有剩余助力次数则给作者助力)\n`)
   for (let i = 0; i < cookiesArr.length && i < 2; i++) {
     $.canHelp = true
     if (cookiesArr[i]) {
@@ -92,7 +85,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
       }
       if ($.canHelp) {
         $.authorTuanList = [...$.authorTuanList, ...($.body1 || [])];
-        if ($.authorTuanList.length) console.log(`开始账号内部互助 赚京豆-瓜分京豆 活动，如有剩余则给作者lxk0301和随机团助力`)
+        if ($.authorTuanList.length) console.log(`开始账号内部互助 赚京豆-瓜分京豆 活动，如有剩余则给作者助力`)
         for (let j = 0; j < $.authorTuanList.length; ++j) {
           console.log(`账号 ${$.UserName} 开始给作者lxk0301和随机团 ${$.authorTuanList[j]['assistedPinEncrypted']}助力`)
           await helpFriendTuan($.authorTuanList[j])
@@ -101,7 +94,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
         }
       }
     }
-  }*/
+  }
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -119,8 +112,8 @@ function showMsg() {
 async function main() {
   try {
     // await userSignIn();//赚京豆-签到领京豆
-    await vvipTask();//赚京豆-加速领京豆
-    //await distributeBeanActivity();//赚京豆-瓜分京豆
+    //await vvipTask();//赚京豆-加速领京豆
+    await distributeBeanActivity();//赚京豆-瓜分京豆
     await showMsg();
   } catch (e) {
     $.logErr(e)
@@ -556,7 +549,7 @@ async function distributeBeanActivity() {
       await openTuan()
       if ($.hasOpen) await getUserTuanInfo()
     }
-    if ($.tuan && $.tuan.hasOwnProperty('assistedPinEncrypted') && $.assistStatus !== 3) {
+    /*if ($.tuan && $.tuan.hasOwnProperty('assistedPinEncrypted') && $.assistStatus !== 3) {
       $.tuanList.push($.tuan);
       const code = Object.assign($.tuan, {"time": Date.now()});
       $.http.post({
@@ -579,7 +572,7 @@ async function distributeBeanActivity() {
           }
         }
       }).catch((e) => console.log(`【赚京豆-瓜分京豆】邀请码提交异常:${e}`));
-    }
+    }*/
   } catch (e) {
     $.logErr(e);
   }
