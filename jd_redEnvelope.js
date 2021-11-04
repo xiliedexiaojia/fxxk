@@ -1,4 +1,4 @@
-/*
+/**
 双十一无门槛红包
  cron 3 0,20 * * * jd_redEnvelope.js
 添加环境变量FLCODE 如需自己返利，请填写该变量（https://u.jd.com/后面的英文）
