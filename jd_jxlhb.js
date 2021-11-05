@@ -304,6 +304,8 @@ function getAuthorShareCode(url) {
         resolve();
       }
     })
+    await $.wait(10000)
+    resolve();
   })
 }
 
