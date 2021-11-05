@@ -375,7 +375,7 @@ function taskReportForColor(taskType, detailId) {
 }
 //领取做完任务后的红包
 function receiveTaskRedpacket(taskType) {
-  const body = {"clientInfo":{}, taskType,"random": randomNum(8),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
+  const body = {"clientInfo":{}, taskType};
   return new Promise((resolve) => {
     $.post(taskUrl('h5receiveRedpacketAll', body), (err, resp, data) => {
       try {
@@ -485,7 +485,7 @@ function h5launch() {
   })
 }
 function h5activityIndex() {
-  const body = {"clientInfo":{},"isjdapp":1,"random": randomNum(8),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
+  const body = {"clientInfo":{},"isjdapp":1};
   const options = taskUrl(arguments.callee.name.toString(), body);
   return new Promise((resolve) => {
     $.post(options, async (err, resp, data) => {
