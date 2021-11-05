@@ -308,7 +308,7 @@ function getHtml() {
             'Host':Host,
             'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'Cookie': `IsvToken=${token};${cookie} LZ_TOKEN_KEY=${LZ_TOKEN_KEY}; LZ_TOKEN_VALUE=${LZ_TOKEN_VALUE}; AUTH_C_USER=${pin}; ${lz_jdpin_token}`,
-            "User-Agent": 'jdapp;iPhone;10.1.4;14.6;5a8a5743a5d2a4110a8ed396bb047471ea120c6a;network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/2214111493;appBuild/167814;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1',
+            "User-Agent": 'jdapp;iPhone;10.2.2;14.6;965af808880443e4c1306a54afdd5d5ae771de46;network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167863;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1',
             'Accept-Language':'zh-cn',
             'Accept-Encoding':'gzip, deflate, br',
             'Connection':'keep-alive'
@@ -396,7 +396,7 @@ function getPostRequest(url, body) {
         'Accept-Encoding' : `gzip, deflate, br`,
         'Content-Type' : `application/x-www-form-urlencoded`,
         'Origin' : `https://${Host}`,
-        "User-Agent": `jdapp;iPhone;10.1.4;14.6;5a8a5743a5d2a4110a8ed396bb047471ea120c6a;network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/2214111493;appBuild/167814;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`,
+        "User-Agent": `jdapp;iPhone;10.2.2;14.6;965af808880443e4c1306a54afdd5d5ae771de46;network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167863;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`,
         'Cookie': `${cookie} LZ_TOKEN_KEY=${LZ_TOKEN_KEY}; LZ_TOKEN_VALUE=${LZ_TOKEN_VALUE}; AUTH_C_USER=${pin}; ${lz_jdpin_token}`,
         'Host' : Host,
         'Referer' : Referer,
@@ -452,7 +452,7 @@ function getWxCommonInfoToken (url) {
         'Accept-Encoding' : `gzip, deflate, br`,
         'Content-Type' : `application/x-www-form-urlencoded`,
         'Origin' : `https://${Host}`,
-        'User-Agent' : `jdapp;iPhone;10.1.4;14.6;5a8a5743a5d2a4110a8ed396bb047471ea120c6a;network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/2214111493;appBuild/167814;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`,
+        'User-Agent' : `jdapp;iPhone;10.2.2;14.6;965af808880443e4c1306a54afdd5d5ae771de46;network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167863;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`,
         'Cookie' : cookie,
         'Host' : Host,
         'Referer' : Referer,
@@ -488,7 +488,7 @@ function getToken() {
         headers: {
             'Host': 'api.m.jd.com',
             'accept': '*/*',
-            'user-agent': 'JD4iPhone/167490 (iPhone; iOS 14.2; Scale/3.00)',
+            'user-agent': 'JD4iPhone/167863 (iPhone; iOS 14.6; Scale/3.00)',
             'accept-language': 'zh-Hans-JP;q=1, en-JP;q=0.9, zh-Hant-TW;q=0.8, ja-JP;q=0.7, en-US;q=0.6',
             'content-type': 'application/x-www-form-urlencoded',
             'Cookie': cookie
