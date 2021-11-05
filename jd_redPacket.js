@@ -112,8 +112,8 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
 
 async function redPacket() {
   try {
-    await doLuckDrawFun();//券后9.9抽奖
-    await taskHomePage();//查询任务列表
+    //await doLuckDrawFun();//券后9.9抽奖
+    //await taskHomePage();//查询任务列表
     await doTask();//领取任务，做任务，领取红包奖励
     await h5activityIndex();//查询红包基础信息
     await red();//红包任务(发起助力红包,领取助力红包等)
@@ -375,7 +375,7 @@ function taskReportForColor(taskType, detailId) {
 }
 //领取做完任务后的红包
 function receiveTaskRedpacket(taskType) {
-  const body = {"clientInfo":{}, taskType,"random": Math.floor(Math.random()*10),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
+  const body = {"clientInfo":{}, taskType,"random": randomNum(8),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
   return new Promise((resolve) => {
     $.post(taskUrl('h5receiveRedpacketAll', body), (err, resp, data) => {
       try {
@@ -400,7 +400,7 @@ function receiveTaskRedpacket(taskType) {
 //助力API
 function jinli_h5assist(redPacketId) {
   //一个人一天只能助力两次，助力码redPacketId 每天都变
-  const body = {"clientInfo":{},redPacketId,"followShop":0,"promUserState":"","random": Math.floor(Math.random()*10),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
+  const body = {"clientInfo":{},redPacketId,"followShop":0,"promUserState":"","random": randomNum(8),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
   const options = taskUrl(arguments.callee.name.toString(), body)
   return new Promise((resolve) => {
     $.post(options, (err, resp, data) => {
@@ -455,7 +455,7 @@ function h5receiveRedpacketAll() {
 }
 //发起助力红包API
 function h5launch() {
-  const body = {"clientInfo":{},"followShop":0,"promUserState":"","random": Math.floor(Math.random()*10),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
+  const body = {"clientInfo":{},"followShop":0,"promUserState":"","random": randomNum(8),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
   const options = taskUrl(arguments.callee.name.toString(), body)
   return new Promise((resolve) => {
     $.post(options, (err, resp, data) => {
@@ -485,7 +485,7 @@ function h5launch() {
   })
 }
 function h5activityIndex() {
-  const body = {"clientInfo":{},"isjdapp":1,"random": Math.floor(Math.random()*10),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
+  const body = {"clientInfo":{},"isjdapp":1,"random": randomNum(8),"log":"42588613~8,~0iuxyee","sceneid":"JLHBhPageh5"};
   const options = taskUrl(arguments.callee.name.toString(), body);
   return new Promise((resolve) => {
     $.post(options, async (err, resp, data) => {
@@ -677,7 +677,13 @@ function TotalBean() {
     })
   })
 }
-
+function randomNum(e) {
+	e = e || 32;
+	let t = "0123456789", a = t.length, n = "";
+	for (i = 0; i < e; i++)
+		n += t.charAt(Math.floor(Math.random() * a));
+	return n
+}
 function jsonParse(str) {
   if (typeof str == "string") {
     try {
