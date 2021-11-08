@@ -156,8 +156,8 @@ async function cfd() {
     await getTakeAggrPage('wxsign')
 
     //使用道具
-    await $.wait(2000)
-    await GetPropCardCenterInfo()
+    //await $.wait(2000)
+    //await GetPropCardCenterInfo()
 
     //助力奖励
     await $.wait(2000)
