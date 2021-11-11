@@ -76,6 +76,7 @@ if ($.isNode()) {
       await signhb(1)
       await $.wait(500)
     }
+  }
   const author = ['2f9bd788cc1cea18d0b55c0584b93f59']
   for (let i = 0; i < author.length; i++) {
     $.shareCodes.push({
