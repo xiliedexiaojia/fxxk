@@ -29,7 +29,7 @@ if ($.isNode()) {
         return;
     }
     for (let i = 0; i < cookiesArr.length; i++) {
-        UA = `jdapp;iPhone;10.1.6;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167841;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
+        UA = `jdapp;iPhone;10.2.2;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167863;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
         $.index = i + 1;
         $.cookie = cookiesArr[i];
         $.isLogin = true;
@@ -140,10 +140,25 @@ async function doTask(){
                 'max':true,
                 'encryptAssignmentId':$.oneTask.encryptAssignmentId
             });
+        } else if($.oneTask.assignmentType === 5) {
+            let signList = $.oneTask.ext.sign2 || [];
+            if (signList.length === 0) {
+                console.log(`任务：${$.oneTask.assignmentName},信息异常`);
+            }
+            if ($.oneTask.assignmentName.indexOf('首页下拉') !== -1) {
+                for (let j = 0; j < signList.length; j++) {
+                    if (signList[j].status === 1) {
+                        console.log(`任务：${$.oneTask.assignmentName},去执行,请稍稍`);
+                        let itemId = signList[j].itemId;
+                        $.runInfo = {'itemId':itemId};
+                        await takeRequest('superBrandDoTask');
+                        await $.wait(3000);
+                    }
+                }
+            }
         }
     }
 }
-
 async function takeRequest(type) {
     let url = ``;
     let myRequest = ``;
@@ -159,6 +174,9 @@ async function takeRequest(type) {
                 url = `https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=${Date.now()}&body=%7B%22source%22:%22secondfloor%22,%22activityId%22:${$.activityId},%22encryptProjectId%22:%22${$.encryptProjectId}%22,%22encryptAssignmentId%22:%22${$.oneTask.encryptAssignmentId}%22,%22assignmentType%22:${$.oneTask.assignmentType},%22completionFlag%22:1,%22itemId%22:%22${$.runInfo.itemId}%22,%22actionType%22:0%7D`;
             }else{
                 url = `https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=${Date.now()}&body=%7B%22source%22:%22secondfloor%22,%22activityId%22:${$.activityId},%22encryptProjectId%22:%22${$.encryptProjectId}%22,%22encryptAssignmentId%22:%22${$.oneTask.encryptAssignmentId}%22,%22assignmentType%22:${$.oneTask.assignmentType},%22itemId%22:%22${$.runInfo.itemId}%22,%22actionType%22:0%7D`;
+            }
+            if($.oneTask.assignmentType === 5){
+                url = `https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=${Date.now()}&body=%7B%22source%22:%22secondfloor%22,%22activityId%22:${$.activityId},%22encryptProjectId%22:%22${$.encryptProjectId}%22,%22encryptAssignmentId%22:%22${$.oneTask.encryptAssignmentId}%22,%22assignmentType%22:${$.oneTask.assignmentType},%22itemId%22:%22${$.runInfo.itemId}%22,%22actionType%22:0,%22dropDownChannel%22:1%7D`;
             }
             break;
         case 'superBrandTaskLottery':
