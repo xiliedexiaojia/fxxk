@@ -38,7 +38,7 @@ if ($.isNode()) {
 const JD_API_HOST = 'https://api.m.jd.com/';
 let agid = [], pageId, encodeActivityId, paginationFlrs, activityId
 let allMessage = '';
-const UA = `jdapp;iPhone;10.1.6;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167841;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
+const UA = `jdapp;iPhone;10.2.2;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167863;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
 function randomWord(randomFlag, min, max){
   var str = "",
     range = min,
@@ -59,7 +59,7 @@ function randomWord(randomFlag, min, max){
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
-  let res = await getAuthorShareCode('http://cdn.boledao.com/shareCodes/connoisseur.json')
+  // let res = await getAuthorShareCode('http://cdn.boledao.com/shareCodes/connoisseur.json')
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -82,35 +82,35 @@ function randomWord(randomFlag, min, max){
       await jdConnoisseur()
     }
   }
-  $.shareCodes = [...new Set([...$.shareCodes, ...(res || [])])]
-  for (let i = 0; i < cookiesArr.length; i++) {
-    if (cookiesArr[i]) {
-      cookie = cookiesArr[i];
-      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
-      if (!isLoginInfo[$.UserName]) continue
-      $.canHelp = true
-      if ($.shareCodes && $.shareCodes.length) {
-        console.log(`\n开始互助\n`)
-        for (let j = 0; j < $.shareCodes.length && $.canHelp; j++) {
-          console.log(`账号${$.UserName} 去助力 ${$.shareCodes[j].use} 的助力码 ${$.shareCodes[j].code}`)
-          if ($.UserName === $.shareCodes[j].use) {
-            console.log(`助力失败：不能助力自己`)
-            continue
-          }
-          $.delcode = false
-          await getTaskInfo("2", $.projectCode, $.taskCode, "2", $.shareCodes[j].code)
-          await $.wait(2000)
-          if ($.delcode) {
-            $.shareCodes.splice(j, 1)
-            j--
-            continue
-          }
-        }
-      } else {
-        break
-      }
-    }
-  }
+  // $.shareCodes = [...new Set([...$.shareCodes, ...(res || [])])]
+  // for (let i = 0; i < cookiesArr.length; i++) {
+  //   if (cookiesArr[i]) {
+  //     cookie = cookiesArr[i];
+  //     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+  //     if (!isLoginInfo[$.UserName]) continue
+  //     $.canHelp = true
+  //     if ($.shareCodes && $.shareCodes.length) {
+  //       console.log(`\n开始互助\n`)
+  //       for (let j = 0; j < $.shareCodes.length && $.canHelp; j++) {
+  //         console.log(`账号${$.UserName} 去助力 ${$.shareCodes[j].use} 的助力码 ${$.shareCodes[j].code}`)
+  //         if ($.UserName === $.shareCodes[j].use) {
+  //           console.log(`助力失败：不能助力自己`)
+  //           continue
+  //         }
+  //         $.delcode = false
+  //         await getTaskInfo("2", $.projectCode, $.taskCode, "2", $.shareCodes[j].code)
+  //         await $.wait(2000)
+  //         if ($.delcode) {
+  //           $.shareCodes.splice(j, 1)
+  //           j--
+  //           continue
+  //         }
+  //       }
+  //     } else {
+  //       break
+  //     }
+  //   }
+  // }
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -153,17 +153,28 @@ async function getActiveInfo(url = 'https://prodev.m.jd.com/mall/active/2y1S9xVY
             activityId = data.activityInfo.activityId
             for (let key of Object.keys(data.codeFloors)) {
               let vo = data.codeFloors[key]
-              if (vo.boardParams && vo.boardParams.taskCode === "2PbAu1BAT79RxrM5V7c2VAPUQDSd") {
+              if (vo.boardParams && vo.boardParams.taskCode === "2CCbSBbVWkFZzRDngs4F6q3YZ62o") {
+                agid = []
+                agid.push(vo.materialParams.advIdVideo[0].advGrpId)
+                console.log(`去做【${vo.boardParams.titleText}】`)
+                await getTaskInfo("11", vo.boardParams.projectCode, vo.boardParams.taskCode)
+              } else if (vo.boardParams && vo.boardParams.taskCode === "4JHmm8nEpyuKgc3z9wkGArXDtEdh") {
+                agid = []
+                agid.push(vo.materialParams.advIdKOC[0].advGrpId)
+                console.log(`去做【${vo.boardParams.titleText}】`)
+                await getTaskInfo("10", vo.boardParams.projectCode, vo.boardParams.taskCode)
+              } else if (vo.boardParams && vo.boardParams.taskCode === "2PbAu1BAT79RxrM5V7c2VAPUQDSd") {
+                agid = []
                 agid.push(vo.materialParams.advIdKOC[0].advGrpId)
                 agid.push(vo.materialParams.advIdVideo[0].advGrpId)
                 console.log(`去做【${vo.boardParams.btnText}】`)
                 await getTaskInfo("5", vo.boardParams.projectCode, vo.boardParams.taskCode)
                 await $.wait(2000)
-              } else if (vo.boardParams && (vo.boardParams.taskCode === "XTXNrKoUP5QK1LSU8LbTJpFwtbj" || vo.boardParams.taskCode === "2bpKT3LMaEjaGyVQRr2dR8zzc9UU")) {
+              } else if (vo.boardParams && (vo.boardParams.taskCode === "485y3NEBCKGJg6L4brNg6PHhuM9d" || vo.boardParams.taskCode === "2bpKT3LMaEjaGyVQRr2dR8zzc9UU")) {
                 console.log(`去做【${vo.boardParams.titleText}】`)
                 await getTaskInfo("9", vo.boardParams.projectCode, vo.boardParams.taskCode)
                 await $.wait(2000)
-              } else if (vo.boardParams && (vo.boardParams.taskCode === "3dw9N5yB18RaN9T1p5dKHLrWrsX" || vo.boardParams.taskCode === "CtXTxzkh4ExFCrGf8si3ePxGnPy" || vo.boardParams.taskCode === "Hys8nCmAaqKmv1G3Y3a5LJEk36Y" || vo.boardParams.taskCode === "26KhtkXmoaj6f37bE43W5kF8a9EL")) {
+              } else if (vo.boardParams && (vo.boardParams.taskCode === "3dw9N5yB18RaN9T1p5dKHLrWrsX" || vo.boardParams.taskCode === "CtXTxzkh4ExFCrGf8si3ePxGnPy" || vo.boardParams.taskCode === "Hys8nCmAaqKmv1G3Y3a5LJEk36Y" || vo.boardParams.taskCode === "2wPBGptSUXNs3fxqgAtrV5MwkYEa")) {
                 await getTaskInfo("1", vo.boardParams.projectCode, vo.boardParams.taskCode)
                 await $.wait(2000)
               }
@@ -181,6 +192,7 @@ async function getActiveInfo(url = 'https://prodev.m.jd.com/mall/active/2y1S9xVY
 async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId = '') {
   let body = {"type":type,"projectId":projectId,"assignmentId":assignmentId,"doneHide":false}
   if (assignmentId === $.taskCode) body['itemId'] = itemId, body['helpType'] = helpType
+  if (assignmentId === "2CCbSBbVWkFZzRDngs4F6q3YZ62o") body['agid'] = agid
   return new Promise(async resolve => {
     $.post(taskUrl('interactive_info', body), async (err, resp, data) => {
       try {
@@ -190,7 +202,64 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
         } else {
           if (data) {
             data = JSON.parse(data)
-            if ((assignmentId === "2PbAu1BAT79RxrM5V7c2VAPUQDSd" || assignmentId === "3dw9N5yB18RaN9T1p5dKHLrWrsX" || assignmentId === "2gWnJADG8JXMpp1WXiNHgSy4xUSv" || assignmentId === "CtXTxzkh4ExFCrGf8si3ePxGnPy" || assignmentId === "26KhtkXmoaj6f37bE43W5kF8a9EL" || assignmentId === "bWE8RTJm5XnooFr4wwdDM5EYcKP") && !body['helpType']) {
+            if (assignmentId === "2CCbSBbVWkFZzRDngs4F6q3YZ62o") {
+              if (data.code === "0" && data.data) {
+                if (data.data[0]) {
+                  if (data.data[0].status !== "2") {
+                    let num = 0;
+                    for (let i = data.data[0].viewedNum; i < data.data[0].viewNum; i++) {
+                      let vo = data.data[0].videoDtoPageResult.list[num]
+                      await interactive_done(type, data.data[0].projectId, data.data[0].assignmentId, vo.articleDto.jump.id, 1)
+                      await $.wait((data.data[0].waitDuration * 1000) || 2000)
+                      num++
+                    }
+                    num = 0;
+                    for (let i = data.data[0].evaluatedNum; i < data.data[0].evaluateNum; i++) {
+                      let vo = data.data[0].videoDtoPageResult.list[num]
+                      await interactive_done(type, data.data[0].projectId, data.data[0].assignmentId, vo.articleDto.jump.id, 2)
+                      await $.wait((data.data[0].waitDuration * 1000) || 2000)
+                      num++
+                    }
+                    await interactive_reward(type, data.data[0].projectId, data.data[0].assignmentId)
+                  } else {
+                    console.log(`任务已完成`)
+                  }
+                } else {
+                  console.log(`无当前任务`)
+                }
+              } else {
+                console.log(data.message)
+              }
+            } else if (assignmentId === "4JHmm8nEpyuKgc3z9wkGArXDtEdh") {
+              if (data.code === "0" && data.data) {
+                if (data.data[0]) {
+                  if (data.data[0].status !== "2") {
+                    let res = await aha_card_list(type, data.data[0].projectId, data.data[0].assignmentId)
+                    let num = 0;
+                    for (let i = data.data[0].watchAlreadyCount; i < data.data[0].watchTotalCount; i++) {
+                      let vo = res.data.cardList[num]
+                      await interactive_done(type, data.data[0].projectId, data.data[0].assignmentId, vo.id, 1)
+                      await $.wait((data.data[0].waitDuration * 1000) || 2000)
+                      num++
+                    }
+                    num = 0;
+                    for (let i = data.data[0].likeAlreadyCount; i < data.data[0].likeTotalCount; i++) {
+                      let vo = res.data.cardList[num]
+                      await interactive_done(type, data.data[0].projectId, data.data[0].assignmentId, vo.id, 2)
+                      await $.wait((data.data[0].waitDuration * 1000) || 2000)
+                      num++
+                    }
+                    await interactive_reward(type, data.data[0].projectId, data.data[0].assignmentId)
+                  } else {
+                    console.log(`任务已完成`)
+                  }
+                } else {
+                  console.log(`无当前任务`)
+                }
+              } else {
+                console.log(data.message)
+              }
+            } else if (assignmentId === "2PbAu1BAT79RxrM5V7c2VAPUQDSd" || assignmentId === "3dw9N5yB18RaN9T1p5dKHLrWrsX" || assignmentId === "2gWnJADG8JXMpp1WXiNHgSy4xUSv" || assignmentId === "CtXTxzkh4ExFCrGf8si3ePxGnPy" || assignmentId === "2wPBGptSUXNs3fxqgAtrV5MwkYEa" || assignmentId === "u4eyHS91t3fV6HRyBCg9k5NTUid" || assignmentId === "4WHSXEqKZeGQZeP9SvqxePQpBkpS" || assignmentId === "4PCdWdiKNwRw1PmLaFzJmTqRBq4v" || assignmentId === "4JcMwRmGJUXptBYzAfUDkKTtgeUs" || assignmentId === "4ZmB6jqmJjRWPWxjuq22Uf17CuUQ" || assignmentId === "QGPPJyQPhSBJ57QcU8PdMwWwwCR" || assignmentId === "tBLY4YL4LkBwWj9KKq9BevHHvcP" || assignmentId === "4UFHr2rSLyS912riDWih6B8gMXkf") {
               if (assignmentId !== "2PbAu1BAT79RxrM5V7c2VAPUQDSd") console.log(`去做【${data.data[0].title}】`)
               if (data.code === "0" && data.data) {
                 if (data.data[0]) {
@@ -206,7 +275,7 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
               } else {
                 console.log(data.message)
               }
-            } else if ((assignmentId === "XTXNrKoUP5QK1LSU8LbTJpFwtbj" || assignmentId === "2bpKT3LMaEjaGyVQRr2dR8zzc9UU") && !body['helpType']) {
+            } else if (assignmentId === "485y3NEBCKGJg6L4brNg6PHhuM9d" || assignmentId === "2bpKT3LMaEjaGyVQRr2dR8zzc9UU") {
               if (data.code === "0" && data.data) {
                 if (data.data[0].status !== "2") {
                   await sign_interactive_done(type, data.data[0].projectId, data.data[0].assignmentId)
@@ -218,7 +287,7 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
               } else {
                 console.log(data.message)
               }
-            } else if (assignmentId === "Hys8nCmAaqKmv1G3Y3a5LJEk36Y" && !body['helpType']) {
+            } else if (assignmentId === "Hys8nCmAaqKmv1G3Y3a5LJEk36Y") {
               if (data.code === "0" && data.data) {
                 console.log(`去做【${data.data[0].title}】`)
                 if (data.data[0].status !== "2") {
@@ -231,7 +300,7 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
               } else {
                 console.log(data.message)
               }
-            } else if (assignmentId === $.taskCode && body['helpType']) {
+            } else if (assignmentId === $.taskCode) {
               if (helpType === '1') {
                 if (data.code === "0" && data.data) {
                   if (data.data[0].status !== "2") {
@@ -274,9 +343,10 @@ async function getTaskInfo(type, projectId, assignmentId, helpType = '1', itemId
     })
   })
 }
-function interactive_done(type, projectId, assignmentId, itemId) {
+function interactive_done(type, projectId, assignmentId, itemId, actionType = '') {
   let body = {"projectId":projectId,"assignmentId":assignmentId,"itemId":itemId,"type":type}
   if (type === "5" || type === "2") body['agid'] = agid
+  if (type === "10" || type === "11") delete body["itemId"], body["actionType"] = actionType, body["contentId"] = itemId
   return new Promise(resolve => {
     $.post(taskUrl('interactive_done', body), (err, resp, data) => {
       try {
@@ -295,7 +365,7 @@ function interactive_done(type, projectId, assignmentId, itemId) {
               }
             } else {
               if (data.code === "0" && data.busiCode === "0") {
-                console.log(data.data.rewardMsg)
+                if (type !== "10" && type !== "11") console.log(data.data.rewardMsg)
               } else {
                 console.log(data.message)
               }
@@ -437,7 +507,7 @@ async function getshareCode() {
             data = JSON.parse(data)
             for (let key of Object.keys(data.floorList)) {
               let vo = data.floorList[key]
-              if (vo.boardParams && (vo.boardParams.taskCode === "2gWnJADG8JXMpp1WXiNHgSy4xUSv" || vo.boardParams.taskCode === "26KhtkXmoaj6f37bE43W5kF8a9EL" || vo.boardParams.taskCode === "bWE8RTJm5XnooFr4wwdDM5EYcKP")) {
+              if (vo.boardParams && (vo.boardParams.taskCode === "2gWnJADG8JXMpp1WXiNHgSy4xUSv" || vo.boardParams.taskCode === "2wPBGptSUXNs3fxqgAtrV5MwkYEa" || vo.boardParams.taskCode === "u4eyHS91t3fV6HRyBCg9k5NTUid" || vo.boardParams.taskCode === "Hys8nCmAaqKmv1G3Y3a5LJEk36Y" || vo.boardParams.taskCode === "4WHSXEqKZeGQZeP9SvqxePQpBkpS" || vo.boardParams.taskCode === "4PCdWdiKNwRw1PmLaFzJmTqRBq4v" || vo.boardParams.taskCode === "4JcMwRmGJUXptBYzAfUDkKTtgeUs" || vo.boardParams.taskCode === "4ZmB6jqmJjRWPWxjuq22Uf17CuUQ" || vo.boardParams.taskCode === "QGPPJyQPhSBJ57QcU8PdMwWwwCR" || vo.boardParams.taskCode === "tBLY4YL4LkBwWj9KKq9BevHHvcP" || vo.boardParams.taskCode === "4UFHr2rSLyS912riDWih6B8gMXkf" || vo.boardParams.taskCode === "3dw9N5yB18RaN9T1p5dKHLrWrsX")) {
                 await getTaskInfo("1", vo.boardParams.projectCode, vo.boardParams.taskCode)
                 await $.wait(2000)
               } else if (vo.boardParams && vo.boardParams.taskCode === "3PX8SPeYoQMgo1aJBZYVkeC7QzD3") {
@@ -445,13 +515,34 @@ async function getshareCode() {
                 $.taskCode = vo.boardParams.taskCode
               }
             }
-            await getTaskInfo("2", $.projectCode, $.taskCode)
+            // await getTaskInfo("2", $.projectCode, $.taskCode)
           }
         }
       } catch (e) {
         $.logErr(e, resp)
       } finally {
         resolve();
+      }
+    })
+  })
+}
+
+function aha_card_list(type, projectId, assignmentId) {
+  return new Promise(resolve => {
+    $.post(taskUrl('browse_aha_task/aha_card_list', {"type":type,"projectId":projectId,"assignmentId":assignmentId,"agid":agid,"firstStart":1}), (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} aha_card_list API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            data = JSON.parse(data)
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve(data);
       }
     })
   })
@@ -474,8 +565,14 @@ function taskUrl(functionId, body) {
   } else {
     body = encodeURIComponent(JSON.stringify(body))
   }
+  let function_Id;
+  if (functionId.indexOf("/") > -1) {
+    function_Id = functionId.split("/")[1]
+  } else {
+    function_Id = functionId
+  }
   return {
-    url: `${JD_API_HOST}${functionId}?functionId=${functionId}&appid=contenth5_common&body=${body}&client=wh5`,
+    url: `${JD_API_HOST}${functionId}?functionId=${function_Id}&appid=contenth5_common&body=${body}&client=wh5`,
     headers: {
       "Host": "api.m.jd.com",
       "Accept": "application/json, text/plain, */*",
@@ -501,7 +598,7 @@ function taskPostUrl(url, body) {
       "j-e-h": "",
       "Accept-Encoding": "gzip, deflate, br",
       "Accept-Language": "zh-Hans-CN;q=1",
-      "User-Agent": "JD4iPhone/167841 (iPhone; iOS; Scale/3.00)",
+      "User-Agent": "JD4iPhone/167863 (iPhone; iOS; Scale/3.00)",
       "Referer": "",
       "Cookie": cookie
     }
