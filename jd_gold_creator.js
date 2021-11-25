@@ -82,7 +82,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
       }
       await main()
       await goldCreatorPublish()
-      await goldCenterDoTask();
+      await goldCenterHead();
     }
   }
 })()
@@ -292,9 +292,41 @@ function goldCreatorPublish() {
     })
   })
 }
-function goldCenterDoTask(body) {
+function goldCenterHead() {
   return new Promise(resolve => {
-    const body = {"type":1};
+    const options = taskUrl('goldCenterHead', '{}')
+    // console.log(options);
+    $.get(options, async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`goldCenterDoTask API请求失败，请检查网路重试`)
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data)
+            if (data.code === '0') {
+              // console.log(data);
+              if (data.result.medalNum === 5) {
+                await goldCreatorDoTask({ "type": 2 })
+              } else {
+                await goldCreatorDoTask({ "type": 1 })
+              }
+            } else {
+              console.log(`失败：${JSON.stringify(data)}\n`);
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+
+function goldCreatorDoTask(body) {
+  return new Promise(resolve => {
     const options = taskUrl('goldCenterDoTask', body)
     $.get(options, async (err, resp, data) => {
       try {
