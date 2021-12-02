@@ -175,6 +175,7 @@ async function all(cookie, jrBody) {
         JDUserSignPre(stop, 'JD3C', '京东商城-数码', '4SWjnZSCTHPYjE5T7j35rxxuMTb6'), //京东数码电器馆
         JDUserSignPre(stop, 'JDWomen', '京东商城-女装', 'DpSh7ma8JV7QAxSE2gJNro8Q2h9'), //京东女装馆
         JDUserSignPre(stop, 'JDBook', '京东商城-图书', '3SC6rw5iBg66qrXPGmZMqFDwcyXi'), //京东图书
+        JDUserSignPre(stop, 'JDPlus', '京东商城-PLUS', 'N9MpLQdxZgiczZaMx2SzmSfZSvF'), //京东PLUS
         //JDUserSignPre(stop, 'ReceiveJD', '京东商城-领豆', 'c46tGzwvXueH7uKSjpXmPQP9Nod'), //京东-领京豆
         JingRongDoll(stop, 'JTDouble', '京东金贴-双签', '1DF13833F7'), //京东金融 金贴双签
         // JingRongDoll(stop, 'XJDouble', '金融现金-双签', 'F68B2C3E71', '', '', '', 'xianjin') //京东金融 现金双签
