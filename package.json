@@ -5,15 +5,15 @@
   "dependencies": {
     "canvas": "^2.8.0",
     "png-js": "^1.0.0",
-    "crypto-js": "^4.0.0",
+    "crypto-js": "^4.1.1",
     "download": "^8.0.0",
-    "got": "^11.5.1",
-    "http-server": "^0.12.3",
-    "jsdom": "^17.0.0",
+    "got": "^12.0.0",
+    "http-server": "^14.0.0",
+    "jsdom": "^19.0.0",
     "qrcode-terminal": "^0.12.0",
     "request": "^2.88.2",
     "tough-cookie": "^4.0.0",
     "tunnel": "0.0.6",
-    "ws": "^7.4.3"
+    "ws": "^8.3.0"
   }
 }
