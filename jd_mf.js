@@ -36,7 +36,7 @@ if ($.isNode()) {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
-const UA = `jdapp;iPhone;10.2.2;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167863;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
+const UA = `jdapp;iPhone;10.2.7;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167894;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
 function randomWord(randomFlag, min, max){
   var str = "",
     range = min,
@@ -272,7 +272,7 @@ function doInteractiveAssignment(extraType, encryptProjectId, sourceCode, encryp
             } else if (extraType === "sign1") {
               console.log(`签到成功：获得${data.rewardsInfo.successRewards[$.type][0] ? `${data.rewardsInfo.successRewards[$.type][0].quantity}${data.rewardsInfo.successRewards[$.type][0].rewardName}` : `${data.rewardsInfo.successRewards[$.type].quantityDetails[0].quantity}${data.rewardsInfo.successRewards[$.type].quantityDetails[0].rewardName}`}`)
             } else if (actionType === "0") {
-              if (data.assignmentInfo.completionCnt === data.assignmentInfo.maxTimes) {
+              if (data.code === 0) {
                 $.complete = true
                 console.log(`完成成功：获得${data.rewardsInfo.successRewards[$.type][0] ? `${data.rewardsInfo.successRewards[$.type][0].quantity}${data.rewardsInfo.successRewards[$.type][0].rewardName}` : `${data.rewardsInfo.successRewards[$.type].quantityDetails[0].quantity}${data.rewardsInfo.successRewards[$.type].quantityDetails[0].rewardName}`}`)
               }
@@ -477,7 +477,7 @@ function taskSignUrl(url, body) {
       'Connection': 'keep-alive',
       'Content-Type': 'application/x-www-form-urlencoded',
       'Referer': '',
-      'User-Agent': 'JD4iPhone/167863 (iPhone; iOS 14.6; Scale/3.00)',
+      'User-Agent': 'JD4iPhone/167894 (iPhone; iOS 14.6; Scale/3.00)',
       'Accept-Language': 'zh-Hans-CN;q=1',
       'Accept-Encoding': 'gzip, deflate, br',
     }
