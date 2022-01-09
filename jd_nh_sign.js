@@ -196,7 +196,7 @@ function getInfo(url) {
       url,
       headers: {
         Cookie: cookie,
-        'User-Agent': 'JD4iPhone/167650 (iPhone; iOS 13.7; Scale/3.00)'
+        'User-Agent': 'JD4iPhone/167903 (iPhone; iOS 14.6; Scale/3.00)'
       }
     }, async (err, resp, data) => {
       try {
