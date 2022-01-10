@@ -1,7 +1,7 @@
 /**
  特务Z，默认选择左边战队
  脚本没有自动开卡，会尝试领取开卡奖励
- cron 23 11,20 * * * https://raw.githubusercontent.com/star261/jd/main/scripts/jd_productZ4Brand.js
+ cron 10 16,18,20 * * * https://raw.githubusercontent.com/star261/jd/main/scripts/jd_productZ4Brand.js
  一天要跑2次
  */
 const $ = new Env('特务Z');
@@ -104,7 +104,7 @@ async function main() {
     if($.activityInfo.activityPkInfo.userTeamName === $.activityInfo.activityPkInfo.winTeamName && $.activityInfo.activityPkInfo.divideStatus === 0 && $.activityInfo.activityPkInfo.divideTimeStatus === 1){
         console.log(`去瓜分`);
         await takeRequest('superBrandTaskLottery',{"source":"pk","activityId":$.activityId,"encryptProjectId":$.encryptProjectId,"encryptAssignmentId":"2v8f6JzBBTjrvzwZbYztuV9MVWv7","tag":"divide"});
-        return ;
+        //return ;
     }
     if($.activityInfo.activityPkInfo.divideStatus === 1){
         console.log(`已瓜分`);
