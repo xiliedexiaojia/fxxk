@@ -17,7 +17,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
-const UA = `jdapp;iPhone;10.2.4;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167874;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
+const UA = `jdapp;iPhone;10.3.0;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167922;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
 function randomWord(randomFlag, min, max){
   var str = "",
     range = min,
@@ -74,6 +74,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         }
         continue
       }
+      await goldCreatorDoTask({ "type": 1 })
       await goldCenterHead();
 
     }
@@ -101,8 +102,8 @@ function goldCenterHead() {
           if (safeGet(data)) {
             data = JSON.parse(data)
             if (data.code === '0') {
-               await goldCreatorDoTask({ "type": 1 })
               if (data.result.medalNum === 5) {
+                await $.wait(1500)
                 await goldCreatorDoTask({ "type": 2 })
               }
             } else {
