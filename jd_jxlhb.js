@@ -49,6 +49,10 @@ $.appId = "e395f"
     return;
   }
   let res = await getAuthorShareCode('http://cdn.boledao.com/shareCodes/jxhb.json')
+  if (!res) {
+    $.http.get({url: 'http://cdn.boledao.com/shareCodes/jxhb.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
+    await $.wait(1000)
+    res = await getAuthorShareCode('http://cdn.boledao.com/shareCodes/jxhb.json')
   }
   if (res && res.activeId) $.activeId = res.activeId;
   $.authorMyShareIds = [...((res && res.codes) || [])];
