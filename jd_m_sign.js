@@ -94,6 +94,8 @@ async function jdsign() {
     await getInfo("https://pro.m.jd.com/mall/active/3joSPpr7RgdHMbcuqoRQ8HbcPo9U/index.html");//生活特权签到
     await $.wait(1000)
     await getInfo("https://prodev.m.jd.com/mini/active/3EVVqbSAdb1jWkED4D6rhVX1Xyf4/index.html?wxAppName=JDCT");
+    await $.wait(1000)
+    await getInfo("https://prodev.m.jd.com/mall/active/412SRRXnKE1Q4Y6uJRWVT6XhyseG/index.html");
   } catch (e) {
     $.logErr(e)
   }
