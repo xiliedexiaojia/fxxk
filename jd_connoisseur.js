@@ -38,7 +38,7 @@ if ($.isNode()) {
 const JD_API_HOST = 'https://api.m.jd.com/';
 let agid = [], pageId, encodeActivityId, paginationFlrs, activityId
 let allMessage = '';
-const UA = `jdapp;iPhone;10.2.2;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167863;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
+const UA = `jdapp;iPhone;10.3.6;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167963;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
 function randomWord(randomFlag, min, max){
   var str = "",
     range = min,
@@ -382,12 +382,10 @@ function interactive_done(type, projectId, assignmentId, itemId, actionType = ''
 }
 async function sign_interactive_done(type, projectId, assignmentId) {
   let functionId = 'interactive_done'
-  let body = JSON.stringify({"assignmentId":assignmentId,"type":type,"projectId":projectId})
-  let uuid = randomString(40)
-  let sign = await getSign(functionId, body, uuid)
-  let url = `${JD_API_HOST}client.action?functionId=${functionId}&client=apple&clientVersion=10.1.0&uuid=${uuid}&${sign}`
+  let body = {"assignmentId":assignmentId,"type":type,"projectId":projectId}
+  let sign = await getSign(functionId, body)
   return new Promise(resolve => {
-    $.post(taskPostUrl(url, body), (err, resp, data) => {
+    $.post(taskPostUrl(functionId, sign), (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -452,12 +450,10 @@ function interactive_accept(type, projectId, assignmentId, itemId) {
 }
 async function qryViewkitCallbackResult(encryptProjectId, encryptAssignmentId, itemId) {
   let functionId = 'qryViewkitCallbackResult'
-  let body = JSON.stringify({"dataSource":"babelInteractive","method":"customDoInteractiveAssignmentForBabel","reqParams":`{\"itemId\":\"${itemId}\",\"encryptProjectId\":\"${encryptProjectId}\",\"encryptAssignmentId\":\"${encryptAssignmentId}\"}`})
-  let uuid = randomString(40)
-  let sign = await getSign(functionId, body, uuid)
-  let url = `${JD_API_HOST}client.action?functionId=${functionId}&client=apple&clientVersion=10.1.0&uuid=${uuid}&${sign}`
+  let body = {"dataSource":"babelInteractive","method":"customDoInteractiveAssignmentForBabel","reqParams":`{\"itemId\":\"${itemId}\",\"encryptProjectId\":\"${encryptProjectId}\",\"encryptAssignmentId\":\"${encryptAssignmentId}\"}`}
+  let sign = await getSign(functionId, body)
   return new Promise(resolve => {
-    $.post(taskPostUrl(url, body), (err, resp, data) => {
+    $.post(taskPostUrl(functionId, sign), (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -586,10 +582,10 @@ function taskUrl(functionId, body) {
     }
   }
 }
-function taskPostUrl(url, body) {
+function taskPostUrl(functionId, body) {
   return {
-    url,
-    body: `body=${encodeURIComponent(body)}`,
+    url: `${JD_API_HOST}client.action?functionId=${functionId}`,
+    body,
     headers: {
       "Host": "api.m.jd.com",
       "Content-Type": "application/x-www-form-urlencoded",
@@ -598,20 +594,19 @@ function taskPostUrl(url, body) {
       "j-e-h": "",
       "Accept-Encoding": "gzip, deflate, br",
       "Accept-Language": "zh-Hans-CN;q=1",
-      "User-Agent": "JD4iPhone/167863 (iPhone; iOS; Scale/3.00)",
+      "User-Agent": "JD4iPhone/167841 (iPhone; iOS; Scale/3.00)",
       "Referer": "",
       "Cookie": cookie
     }
   }
 }
-function getSign(functionid, body, uuid) {
+function getSign(functionId, body) {
   return new Promise(async resolve => {
     let data = {
-      "functionId":functionid,
-      "body":body,
-      "uuid":uuid,
+      functionId,
+      body: JSON.stringify(body),
       "client":"apple",
-      "clientVersion":"10.1.0"
+      "clientVersion":"10.3.0"
     }
     let HostArr = ['jdsign.cf', 'signer.nz.lu']
     let Host = HostArr[Math.floor((Math.random() * HostArr.length))]
