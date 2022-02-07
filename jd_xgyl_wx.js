@@ -24,7 +24,7 @@ cron "3 0,7 * * *" script-path=jd_xgyl_wx.js, tag=小鸽有礼
 const $ = new Env('小鸽有礼');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-const activityCode = '1450678733911367680';
+const activityCode = '1483634772776325120';
 $.helpCodeList = [];
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '';
