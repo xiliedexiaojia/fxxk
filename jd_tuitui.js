@@ -9,7 +9,7 @@ cron 0 0-23/4 * * * jd_tuitui.js
 const $ = new Env('推推赚大钱'); 
 const notify = $.isNode() ? require("./sendNotify") : "";
  ///**中间为需要设置的参数
-const actId ="d5a8c7198ee54de093d2adb04089d3ec";
+const actId ="49f40d2f40b3470e8d6c39aa4866c7ff";
 let n = 0; //如果只希望跑满5人团，n=0 ；如果希望跑满25人，n=1 ；n如果设置为0和1以外的数字表示无限助力
 
   //中间为需要设置的参数*/
