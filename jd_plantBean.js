@@ -45,7 +45,7 @@ let roundList = [];
 let awardState = '';//上期活动的京豆是否收取
 let randomCount = $.isNode() ? 20 : 5;
 let num;
-const UA = `jdapp;iPhone;10.1.6;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/167841;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
+const UA = `jdapp;iPhone;10.4.5;14.6;${randomWord(false,40,40)};network/wifi;JDEbook/openapp.jdreader;model/iPhone9,2;addressid/0;appBuild/168001;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16E158;supportJDSHWK/1`;
 function randomWord(randomFlag, min, max){
   var str = "",
     range = min,
@@ -298,21 +298,23 @@ async function doTask() {
         await shopTaskList();
         const { data } = $.shopTaskListRes;
         let goodShopListARR = [], moreShopListARR = [], shopList = [];
+        if (!data.goodShopList) {
+          data.goodShopList = [];
+        }
+        if (!data.moreShopList) {
+          data.moreShopList = [];
+        }
         const { goodShopList, moreShopList } = data;
-		if (goodShopList) {
-		    for (let i of goodShopList) {
-		        if (i.taskState === '2') {
-		            goodShopListARR.push(i);
-		        }
-		    }
-		}
-		if (moreShopList) {
-		    for (let j of moreShopList) {
-		        if (j.taskState === '2') {
-		            moreShopListARR.push(j);
-		        }
-		    }
-		}
+        for (let i of goodShopList) {
+          if (i.taskState === '2') {
+            goodShopListARR.push(i);
+          }
+        }
+        for (let j of moreShopList) {
+          if (j.taskState === '2') {
+            moreShopListARR.push(j);
+          }
+        }
         shopList = goodShopListARR.concat(moreShopListARR);
         for (let shop of shopList) {
           const { shopId, shopTaskId } = shop;
