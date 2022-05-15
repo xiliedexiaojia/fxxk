@@ -18,13 +18,13 @@ let resultPath = "./result.txt";
 let JD_DailyBonusPath = "./JD_DailyBonus.js";
 let outPutUrl = './';
 let NodeSet = 'CookieSet.json';
-let cookiesArr = [], cookie = '', allMessage = '', jrBodyArr = [], jrBody = '';
+let cookiesArr = [], cookie = '', allMessage = '';// jrBodyArr = [], jrBody = '';
 
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
   })
-  if (process.env.JD_BEAN_SIGN_BODY) {
+    /*if (process.env.JD_BEAN_SIGN_BODY) {
     if (process.env.JD_BEAN_SIGN_BODY.indexOf('&') > -1) {
       jrBodyArr = process.env.JD_BEAN_SIGN_BODY.split('&');
     } else if (process.env.JD_BEAN_SIGN_BODY.indexOf('\n') > -1) {
@@ -32,7 +32,7 @@ if ($.isNode()) {
     } else {
       jrBodyArr = [process.env.JD_BEAN_SIGN_BODY];
     }
-  }
+  }*/
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
 }
 !(async() => {
@@ -68,7 +68,7 @@ if ($.isNode()) {
         }
         continue
       }
-      jrBody = ''
+      /*jrBody = ''
       let UserName = cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]
       if (jrBodyArr && jrBodyArr.length) {
         for (let key in Object.keys(jrBodyArr)) {
@@ -79,7 +79,7 @@ if ($.isNode()) {
         }
       } else {
         jrBody = ''
-      }
+      }*/
       await changeFile(content);
       await execSign();
     }
@@ -176,7 +176,8 @@ async function downFile () {
 
 async function changeFile (content) {
   console.log(`开始替换变量`)
-  let newContent = content.replace(/var OtherKey = `.*`/, `var OtherKey = \`[{"cookie":"${cookie}","jrBody":"${jrBody}"}]\``);
+  //let newContent = content.replace(/var OtherKey = `.*`/, `var OtherKey = \`[{"cookie":"${cookie}","jrBody":"${jrBody}"}]\``);
+  let newContent = content.replace(/var Key = '.*'/, `var Key = '${cookie}'`);
   newContent = newContent.replace(/const NodeSet = 'CookieSet.json'/, `const NodeSet = '${NodeSet}'`)
   if (process.env.JD_BEAN_STOP && process.env.JD_BEAN_STOP !== '0') {
     newContent = newContent.replace(/var stop = '0'/, `var stop = '${process.env.JD_BEAN_STOP}'`);

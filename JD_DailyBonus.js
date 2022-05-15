@@ -150,7 +150,7 @@ async function all(cookie, jrBody) {
       await Promise.all([
         JingDongBean(stop), //京东京豆
         //JingDongStore(stop), //京东超市
-        JingRongSteel(stop, jrBody), //金融钢镚
+        //JingRongSteel(stop, jrBody), //金融钢镚
         //JingDongTurn(stop), //京东转盘
         //JDFlashSale(stop), //京东闪购
         //JingDongCash(stop), //京东现金红包
@@ -202,7 +202,7 @@ async function all(cookie, jrBody) {
     default:
       await JingDongBean(0); //京东京豆
       //await JingDongStore(Wait(stop)); //京东超市
-      await JingRongSteel(Wait(stop), jrBody); //金融钢镚
+      //await JingRongSteel(Wait(stop), jrBody); //金融钢镚
       //await JingDongTurn(Wait(stop)); //京东转盘
       //await JDFlashSale(Wait(stop)); //京东闪购
       //await JingDongCash(Wait(stop)); //京东现金红包
