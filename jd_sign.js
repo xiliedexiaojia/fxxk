@@ -45,11 +45,12 @@ if ($.isNode()) {
 
 const turnTableId = [
   //{ "name": "京东商城-健康", "id": 527, "url": "https://prodev.m.jd.com/mall/active/w2oeK5yLdHqHvwef7SMMy4PL8LF/index.html" },
-  { "name": "京东商城-清洁", "id": 446, "url": "https://prodev.m.jd.com/mall/active/2Tjm6ay1ZbZ3v7UbriTj6kHy9dn6/index.html" },
+
   { "name": "京东商城-个护", "id": 336, "url": "https://prodev.m.jd.com/mall/active/2tZssTgnQsiUqhmg5ooLSHY9XSeN/index.html" },
   { "name": "京东商城-母婴", "id": 458, "url": "https://prodev.m.jd.com/mall/active/3BbAVGQPDd6vTyHYjmAutXrKAos6/index.html" },
   { "name": "京东商城-数码", "id": 347, "url": "https://prodev.m.jd.com/mall/active/4SWjnZSCTHPYjE5T7j35rxxuMTb6/index.html" },
   { "name": "PLUS会员定制", "id": 1265, "url": "https://prodev.m.jd.com/mall/active/N9MpLQdxZgiczZaMx2SzmSfZSvF/index.html" },
+  { "name": "京东商城-清洁", "id": 446, "url": "https://prodev.m.jd.com/mall/active/2Tjm6ay1ZbZ3v7UbriTj6kHy9dn6/index.html" }
   //{"name": "连续签到", "id": 1345, "url": "https://sendbeans.jd.com/jump/index/#/taro/pages/turncard/index?turnTableId=1345&shopId=1000000142" },
   // { "name": "京东商城-童装", "id": 511, "url": "https://prodev.m.jd.com/mall/active/3Af6mZNcf5m795T8dtDVfDwWVNhJ/index.html" },
   // { "name": "京东商城-内衣", "id": 1071, "url": "https://prodev.m.jd.com/mall/active/4PgpL1xqPSW1sVXCJ3xopDbB1f69/index.html" },
@@ -108,8 +109,8 @@ async function signRun() {
     }else{
       errorNum++;
     }
-    let time = Math.random() * 2000 + 2000
-    console.log(`等待${(time/1000).toFixed(3)}秒`)
+    let time = Math.random() * 5000 + 30000
+    console.log(`等待${(time/1000).toFixed(30)}秒`)
     await $.wait(parseInt(time, 10))
   }
 }
@@ -139,13 +140,13 @@ function Login(i) {
                 // console.log("验证码："+$.validate)
                 if($.validate){
                   if($.validatorTime < 33){
-                    let time = Math.random() * 5000 + 63000 - $.validatorTime*1000
+                    let time = Math.random() * 5000 + 83000 - $.validatorTime*1000
                     console.log(`等待${(time/1000).toFixed(3)}秒`)
                     await $.wait(parseInt(time, 10))
                   }
                   await Sign(i,3)
                 }
-                let time = Math.random() * 5000 + 62000
+                let time = Math.random() * 5000 + 82000
                 console.log(`等待${(time/1000).toFixed(3)}秒`)
                 await $.wait(parseInt(time, 10))
               } else if (data.hasSign === true) {
