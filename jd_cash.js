@@ -28,7 +28,7 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
 let helpAuthor = true;
-let jdPandaToken = '';
+//let jdPandaToken = '';
 const randomCount = $.isNode() ? 5 : 5;
 let cash_exchange = false;//是否消耗2元红包兑换200京豆，默认否
 const inviteCodes = []
@@ -42,12 +42,12 @@ if ($.isNode()) {
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 let allMessage = '';
-jdPandaToken = $.isNode() ? (process.env.jd_cash_PandaToken ? process.env.jd_cash_PandaToken : `${jdPandaToken}`) : ($.getdata('jd_cash_PandaToken') ? $.getdata('jd_cash_PandaToken') : `${jdPandaToken}`);
+//jdPandaToken = $.isNode() ? (process.env.jd_cash_PandaToken ? process.env.jd_cash_PandaToken : `${jdPandaToken}`) : ($.getdata('jd_cash_PandaToken') ? $.getdata('jd_cash_PandaToken') : `${jdPandaToken}`);
 
-if (!jdPandaToken) {
-    console.log('请填写Panda获取的Token,变量是jd_cash_PandaToken');
-	return;
-}
+//if (!jdPandaToken) {
+//    console.log('请填写Panda获取的Token,变量是jd_cash_PandaToken');
+//	return;
+//}
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
@@ -289,7 +289,7 @@ function getSignfromPanda(functionId, body) {
 		        'Accept': '*/*',
 		        "accept-encoding": "gzip, deflate, br",
 		        'Content-Type': 'application/json',
-		        'Authorization': 'Bearer ' + jdPandaToken
+		       // 'Authorization': 'Bearer ' + jdPandaToken
 		    },
 		    timeout: 30000
         }
