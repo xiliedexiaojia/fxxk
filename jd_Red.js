@@ -206,7 +206,7 @@ async function run(type = 0){
       if($.flag == 1){
         await $.wait(parseInt(Math.random() * 5000 + 3000, 10))
       }
-    }while ($.flag == 1 && s < 5)
+    }while ($.flag == 1 && s < 2)
     if($.endFlag) return
     if(resMsg){
       message += `【京东账号${$.index}】${$.nickName || $.UserName}\n${resMsg}`
