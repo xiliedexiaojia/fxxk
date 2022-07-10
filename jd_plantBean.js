@@ -123,7 +123,7 @@ async function jdPlantBean() {
 
       // ***************************
       // 报告运行次数
-      $.get({
+      /*$.get({
         url: `https://cdn.nz.lu/api/runTimes?activityId=bean&sharecode=${$.myPlantUuid}`,
         headers: {
           'Host': 'api.jdsharecode.xyz'
@@ -137,7 +137,7 @@ async function jdPlantBean() {
             console.log('上报成功')
           }
         }
-      })
+      })*/
       // ***************************
 
       roundList = $.plantBeanIndexResult.data.roundList;
