@@ -83,7 +83,7 @@ if ($.isNode()) {
       await $.wait(2000);
     }
   }
-  let res = await getAuthorShareCode('http://cdn.boledao.com/shareCodes/cfd.json')
+  /*let res = await getAuthorShareCode('http://cdn.boledao.com/shareCodes/cfd.json')
   $.strMyShareIds = [...(res && res.shareId || [])]
   await shareCodesFormat()
   for (let i = 0; i < cookiesArr.length; i++) {
@@ -107,7 +107,7 @@ if ($.isNode()) {
     } else {
       break
     }
-  }
+  }*/
   await showMsg();
 })()
     .catch((e) => $.logErr(e))
@@ -164,8 +164,8 @@ async function cfd() {
     }
 
     //助力奖励
-    await $.wait(2000)
-    await getTakeAggrPage('helpdraw')
+    //await $.wait(2000)
+    //await getTakeAggrPage('helpdraw')
 
     console.log('')
     //卖贝壳
