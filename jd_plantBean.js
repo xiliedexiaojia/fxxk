@@ -565,7 +565,7 @@ function jxdoublesign1(url){
       //'Host': 'wq.jd.com',
       'accept':'application/json',
       'referer': 'https://st.jingxi.com/',
-      'User-Agent': 'User-Agent': 'jdpingou;iPhone;5.32.0;14.6;${randomWord(false,40,40)};network/wifi;model/iPhone9,2;appBuild/100996;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/${Math.random * 98 + 1};pap/JA2019_3111789;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
+      'User-Agent': 'jdpingou;iPhone;5.32.0;14.6;${randomWord(false,40,40)};network/wifi;model/iPhone9,2;appBuild/100996;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/${Math.random * 98 + 1};pap/JA2019_3111789;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
       'Cookie': 'cid=4;'+cookie
     }
   }
