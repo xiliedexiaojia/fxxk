@@ -515,7 +515,7 @@ if(DisableIndex!=-1){
 			        GetJoyRuninginfo(), //汪汪赛跑
 			        queryScores()
 			    ])
-				
+			await $.wait(30000);
 			await showMsg();
 			if (intPerSent > 0) {
 				if ((i + 1) % intPerSent == 0) {
