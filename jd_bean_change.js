@@ -498,7 +498,7 @@ if(DisableIndex!=-1){
 			}
 						
 			await getjdfruitinfo() //东东农场
-			await $.wait(1000);
+			await $.wait(5000);
 			
 			await Promise.all([
 			        getJoyBaseInfo(), //汪汪乐园
