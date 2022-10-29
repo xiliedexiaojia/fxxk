@@ -71,7 +71,7 @@ function randomWord(randomFlag, min, max){
       $.nickName = '';
       message = '';
       uuid = randomString()
-      await TotalBean();
+      //await TotalBean();
       console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
@@ -82,6 +82,7 @@ function randomWord(randomFlag, min, max){
         continue
       }
       await jdBeanHome();
+      await $.wait(20000);
     }
   }
   for (let i = 0; i < cookiesArr.length; i++) {
