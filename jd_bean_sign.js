@@ -45,8 +45,6 @@ if ($.isNode()) {
   await requireConfig();
   // 下载最新代码
   // await downFile();
-  await deleteFile(resultPath);//删除result.txt
-  await deleteFile(NodeSet);//删除CookieSet.json
   if (!await fs.existsSync(JD_DailyBonusPath)) {
     console.log(`\nJD_DailyBonus.js 文件不存在，停止执行${$.name}\n`);
     await notify.sendNotify($.name, `本次执行${$.name}失败，JD_DailyBonus.js 文件下载异常，详情请查看日志`)
@@ -148,9 +146,9 @@ async function downFile () {
   let url = '';
   await downloadUrl();
   if ($.body) {
-    url = 'https://raw.githubusercontent.com/danteswx/fxxk/main/JD_DailyBonus.js';
+    url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js';
   } else {
-    url = 'https://cdn.jsdelivr.net/gh/danteswx/fxxk@main/JD_DailyBonus.js';
+    url = 'https://cdn.jsdelivr.net/gh/NobyDa/Script@master/JD-DailyBonus/JD_DailyBonus.js';
   }
   try {
     const options = { }
@@ -246,7 +244,7 @@ function TotalBean() {
     })
   })
 }
-function downloadUrl(url = 'https://raw.githubusercontent.com/danteswx/fxxk/main/JD_DailyBonus.js') {
+function downloadUrl(url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js') {
   return new Promise(resolve => {
     const options = { url, "timeout": 10000 };
     if ($.isNode() && process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT) {
