@@ -1424,6 +1424,32 @@ function requireConfig() {
     resolve()
   })
 }
+async function ddnc_getTreasureBoxAward() {
+    await request('ddnc_getTreasureBoxAward', { "type": 1, "babelChannel": "121", "line": "getBean", "version": 19, "channel": 1, "lat": "", "lng": "" });
+    await $.wait(500);
+    await beanlist();
+    await $.wait(2000);
+    let res = await request('ddnc_getTreasureBoxAward', { "type": 2, "babelChannel": "121", "line": "getBean", "version": 19, "channel": 1, "lat": "", "lng": "" });
+    if (res.code == 0) {
+        $.log(`完成，获得${res.waterGram}g💧\n`);
+    }
+}
+function beanlist() {
+    return new Promise((resolve) => {
+        const options = {
+            url: `https://api.m.jd.com/client.action?functionId=beanTaskList&body=%7B%22viewChannel%22%3A%22AppHome%22%2C%22beanVersion%22%3A1%2C%22lng%22%3A%22%22%2C%22lat%22%3A%22%22%7D&appid=ld`,
+            headers: {
+                "Cookie": cookie,
+                "referer": "https://h5.m.jd.com/",
+                "User-Agent": $.UA,
+            },
+            timeout: 10000
+        }
+        $.get(options, (err, resp, data) => {
+            resolve();
+        });
+    });
+}
 function TotalBean() {
   return new Promise(async resolve => {
     const options = {
